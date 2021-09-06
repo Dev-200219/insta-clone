@@ -1,0 +1,40 @@
+.video-card-container{
+    height: 35rem;
+    width: 50rem;
+    display: flex;
+    margin: 1rem;
+    box-shadow: 0px 0px 2.5px 3px #aaa;
+    border-radius: 4px;
+}
+
+.vl{
+    height: 90%;
+    border-left: solid #ecf0f1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 1.75rem
+}
+
+.data-container{
+    height: 100%;
+    width: 50%;
+}
+
+.data-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.like-comment-container{
+    height: 100%;
+    width: 50%;
+    position: relative;
+}
+
+.like-btn{
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    color: red;
+}

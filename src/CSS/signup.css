@@ -1,0 +1,17 @@
+.sign-up-box{
+    height: 97vh;
+    width: 100vw !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    height: 35rem;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 2px gray;
+}
