@@ -20,6 +20,7 @@ let AuthProvider = (props) => {
             uid,
             displayName,
             photoURL,
+            bio:""
           });
         }
 
@@ -28,6 +29,7 @@ let AuthProvider = (props) => {
           uid,
           email,
           photoURL,
+          bio:""
         });
       } else {
         setUser(null);

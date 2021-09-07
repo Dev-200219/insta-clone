@@ -5,14 +5,16 @@ import "../CSS/ProfilePage.css";
 import { firestore, storage } from "../firebase";
 import { Redirect } from "react-router";
 import ImageCard from "./ImageCard";
-import CreateIcon from "@material-ui/icons/Create";
 import { Button } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
 let ProfilePage = () => {
   let user = useContext(userContext);
   let [currUserName, setCurrUserName] = useState("");
   let [currUserDP, setCurrUserDP] = useState("");
   let [currUserPost, setCurrUserPost] = useState([]);
+  let [currUserBio, setCurrUserBio] = useState("");
+  let [isBioInputOpen, setIsBioInputOpen] = useState(false);
 
   useEffect(() => {
     firestore
@@ -22,6 +24,7 @@ let ProfilePage = () => {
       .then((docRef) => {
         setCurrUserName(docRef.data().displayName);
         setCurrUserDP(docRef.data().photoURL);
+        setCurrUserBio(docRef.data().bio);
       });
   }, []);
 
@@ -40,6 +43,16 @@ let ProfilePage = () => {
   }, []);
 
   const inputFile = useRef(null);
+  const inputBio = useRef(null);
+  const inputBioSaveBtn = useRef(null);
+  const openBioBox = () => {
+    inputBio.current.style = "display:block";
+    inputBioSaveBtn.current.style = "display:block";
+  };
+  const closeBioBox = () => {
+    inputBio.current.style = "display:none";
+    inputBioSaveBtn.current.style = "display:none";
+  };
   const openInputBox = () => {
     inputFile.current.click();
   };
@@ -113,18 +126,52 @@ let ProfilePage = () => {
                   <h2>{currUserName}</h2>
                 </div>
                 <div className="profile-user-bio">
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries,
-                    but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with
-                    the release of Letraset sheets containing Lorem Ipsum
-                    passages, and more recently with desktop publishing software
-                    like Aldus PageMaker including versions of Lorem Ipsum.
-                  </p>
+                  {currUserBio === "" ? (
+                    <p>Add to bio..</p>
+                  ) : (
+                    <p>{currUserBio}</p>
+                  )}
+                  <Button
+                    className="bio-edit-btn"
+                    onClick={() => {
+                      if (isBioInputOpen) {
+                        setIsBioInputOpen(false);
+                        closeBioBox();
+                      } else {
+                        setIsBioInputOpen(true);
+                        openBioBox();
+                      }
+                    }}
+                    variant="contained"
+                    color="primary"
+                  >
+                    <EditIcon />
+                  </Button>
+                  <input
+                    ref={inputBio}
+                    type="text"
+                    style={{ display: "none" }}
+                    value={currUserBio}
+                    onChange={(e) => {
+                      setCurrUserBio(e.currentTarget.value);
+                    }}
+                  ></input>
+                  <Button
+                    onClick={() => {
+                      closeBioBox();
+                      firestore
+                        .collection("users")
+                        .doc(user.uid)
+                        .get()
+                        .then((docRef) => {
+                          docRef.ref.update({ bio: currUserBio });
+                        });
+                    }}
+                    style={{ display: "none" }}
+                    ref={inputBioSaveBtn}
+                  >
+                    Save
+                  </Button>
                 </div>
               </div>
             </div>
