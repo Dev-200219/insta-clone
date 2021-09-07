@@ -1,40 +1,129 @@
-.video-card-container{
-    height: 35rem;
-    width: 50rem;
+.video-card-container {
+  height: 35rem;
+  width: 50rem;
+  display: flex;
+  margin: 1rem;
+  box-shadow: 0px 0px 2.5px 3px #aaa;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.vl {
+  height: 90%;
+  border-left: solid #ecf0f1;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 1.75rem;
+}
+
+.data-container {
+  height: 100%;
+  width: 50%;
+}
+
+.data-container img, .data-container video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.like-comment-container {
+  height: 100%;
+  width: 50%;
+  position: relative;
+}
+
+.like-btn {
+  position: absolute;
+  top: 130px;
+  left: 339px;
+  color: red;
+  font-size: 2rem !important;
+}
+
+.add-comment {
+  position: absolute;
+  left: 2px;
+  top: 130px;
+}
+
+.add-comment input {
+  border: none;
+  outline: none;
+  background-color: #f1f2f6;
+  height: 1.5rem;
+  width: 20rem;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.like-comment-container button {
+  height: 0;
+  width: 0;
+  color: white;
+  background-color: white;
+  border: none;
+  outline: none;
+}
+
+.user-info{
+    position: absolute;
     display: flex;
-    margin: 1rem;
-    box-shadow: 0px 0px 2.5px 3px #aaa;
-    border-radius: 4px;
+    top: 15px;
 }
 
-.vl{
-    height: 90%;
-    border-left: solid #ecf0f1;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 1.75rem
+.user-info .user-img{
+    height: 5rem;
+    width: 5rem;
+    margin: 10px;
 }
 
-.data-container{
-    height: 100%;
-    width: 50%;
-}
-
-.data-container img{
+.user-img img{
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    border-radius: 50%;
 }
 
-.like-comment-container{
-    height: 100%;
-    width: 50%;
-    position: relative;
+.user-info p{
+    font-size: 1.5rem;
 }
 
-.like-btn{
+.actual-comments-container{
     position: absolute;
-    top: 25px;
-    left: 10px;
-    color: red;
+    top: 200px;
+    height: 60%;
+    width: 95%;
+}
+
+.actual-comment .comment-user-info{
+    display: flex;
+}
+
+.actual-comment{
+    margin: 15px;
+    /* display: flex; */
+}
+
+.comm-user-img{
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 10px;
+}
+
+.comment-user-info p{
+    display: inline-block;
+    margin-top: 2px;
+    font-size: 1rem;
+}
+
+.comm-user-img img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.comment-value p{
+    margin-top: -16px;
+    margin-left: 51px;
+    font-size: 15px;
 }

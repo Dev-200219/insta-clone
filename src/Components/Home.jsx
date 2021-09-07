@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddIcon from "@material-ui/icons/Add";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Redirect, useHistory } from "react-router";
 import { auth, firestore, storage } from "../firebase";
 import { userContext } from "./AuthProvider";
@@ -20,6 +20,7 @@ let Home = () => {
   let history = useHistory();
   let user = useContext(userContext);
   let doc, docRef, userName;
+  let [posts, setPosts] = useState([]);
 
   useEffect(async () => {
     if (user) {
@@ -32,6 +33,23 @@ let Home = () => {
         history.push("/sign-up2");
       }
     }
+
+    let unsub = firestore.collection("posts").onSnapshot((querySnapshot) => {
+      let docArr = querySnapshot.docs;
+      let arr = [];
+
+      for (let i = 0; i < docArr.length; i++) {
+        arr.push({
+          id: docArr[i].id,
+          ...docArr[i].data(),
+        });
+      }
+      setPosts(arr);
+
+      return () => {
+        unsub();
+      };
+    });
   }, []);
 
   const useStyles = makeStyles({
@@ -109,21 +127,28 @@ let Home = () => {
                 .put(uploadedObj);
               uploadtask.on("state_changed", null, null, () => {
                 uploadtask.snapshot.ref.getDownloadURL().then((url) => {
-                  firestore.collection("posts").add({
-                    id: user.uid,
-                    likes: [],
-                    comments: [],
-                    url: url,
-                    type,
-                  });
+                  firestore
+                    .collection("users")
+                    .doc(user.uid)
+                    .get()
+                    .then((docRef) => {
+                      firestore.collection("posts").add({
+                        name: docRef.data().displayName,
+                        dp: docRef.data().photoURL,
+                        likes: [],
+                        comments: [],
+                        url: url,
+                        type,
+                      });
+                    });
                 });
               });
             }}
           />
           <div className="posts-container">
-            <VideoCard />
-            <VideoCard />
-            <VideoCard />
+            {posts.map((el, idx) => {
+              return <VideoCard key={idx} data={el} />;
+            })}
           </div>
         </>
       ) : (

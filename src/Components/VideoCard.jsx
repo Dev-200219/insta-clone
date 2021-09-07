@@ -1,16 +1,117 @@
-import "../CSS/VideoCard.css"
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import "../CSS/VideoCard.css";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteSharpIcon from "@material-ui/icons/FavoriteSharp";
+import { useContext, useState } from "react";
+import { userContext } from "./AuthProvider";
+import { firestore } from "../firebase";
 
-let VideoCard = () => {
+let VideoCard = (props) => {
+  let user = useContext(userContext);
+  let currUserName;
+  firestore
+    .collection("users")
+    .doc(user.uid)
+    .get()
+    .then((docRef) => {
+      currUserName = docRef.data().displayName;
+      console.log(currUserName);
+    });
+  let isLikedByUser = props.data.likes.includes(user.uid);
+  let [comment, setComment] = useState("");
+  let post = props.data;
+  let commentsArr = post.comments;
+
   return (
     <>
       <div className="video-card-container">
         <div className="data-container">
-          <img src="https://api.time.com/wp-content/uploads/2017/02/2-instagram-edit-multiple.png"></img>
+          {post.type === "image" ? (
+            <img src={post.url}></img>
+          ) : (
+            <video controls src={post.url}></video>
+          )}
         </div>
         <div className="vl"></div>
         <div className="like-comment-container">
-            <FavoriteBorderIcon className="like-btn"/>
+          <div className="user-info">
+            <div className="user-img">
+              {post.dp ? (
+                <img src={post.dp}></img>
+              ) : (
+                <img src="https://i.stack.imgur.com/l60Hf.png"></img>
+              )}
+            </div>
+            <p className="user-name">{post.name}</p>
+          </div>
+          <div className="add-comment">
+            <input
+              onChange={(e) => {
+                setComment(e.currentTarget.value);
+              }}
+              value={comment}
+              placeholder="Comment..."
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  let newCommArr = [
+                    ...post.comments,
+                    {
+                      name: currUserName,
+                      dp: user.photoURL,
+                      value: comment,
+                    },
+                  ];
+
+                  firestore
+                    .collection("posts")
+                    .doc(post.id)
+                    .update({ comments: newCommArr });
+
+                  setComment("");
+                }
+              }}
+            ></input>
+          </div>
+          <button
+            onClick={() => {
+              let arr = [];
+              if (isLikedByUser) {
+                for (let i = 0; i < post.likes.length; i++) {
+                  if (post.likes[i] !== user.uid) arr.push(post.likes[i]);
+                }
+              } else {
+                arr = [...post.likes, user.uid];
+              }
+              firestore.collection("posts").doc(post.id).update({ likes: arr });
+            }}
+          >
+            {isLikedByUser ? (
+              <FavoriteSharpIcon className="like-btn" />
+            ) : (
+              <FavoriteBorderIcon className="like-btn" />
+            )}
+          </button>
+
+          <div className="actual-comments-container">
+            {commentsArr.map((el, idx) => {
+              return (
+                <div key={idx} className="actual-comment">
+                  <div className="comment-user-info">
+                    <div className="comm-user-img">
+                      {el.dp ? (
+                        <img src={el.dp} alt="" />
+                      ) : (
+                        <img src="https://i.stack.imgur.com/l60Hf.png" alt="" />
+                      )}
+                    </div>
+                    <p>{el.name}</p>
+                  </div>
+                  <div className="comment-value">
+                    <p>{el.value}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>
