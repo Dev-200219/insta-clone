@@ -1,19 +1,12 @@
-import {
-  AppBar,
-  Button,
-  makeStyles,
-  Toolbar,
-  Typography,
-  Fab,
-} from "@material-ui/core";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { makeStyles, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Redirect, useHistory } from "react-router";
-import { auth, firestore, storage } from "../firebase";
+import { firestore, storage } from "../firebase";
 import { userContext } from "./AuthProvider";
 import VideoCard from "./VideoCard";
 import "../CSS/Home.css";
+import Navbar from "./Navbar";
 
 let Home = () => {
   const inputFile = useRef(null);
@@ -25,7 +18,6 @@ let Home = () => {
   useEffect(async () => {
     if (user) {
       docRef = firestore.collection("users").doc(user.uid);
-      console.log(docRef);
       doc = await docRef.get();
       userName = await doc.data().name;
 
@@ -72,24 +64,7 @@ let Home = () => {
     <>
       {user ? (
         <>
-          <AppBar position="fixed">
-            <Toolbar>
-              <Typography variant="h6" className={classes.title}>
-                Instagram
-              </Typography>
-              <Button>
-                <AccountCircleIcon />
-              </Button>
-              <Button
-                onClick={() => {
-                  auth.signOut();
-                }}
-                color="inherit"
-              >
-                Logout
-              </Button>
-            </Toolbar>
-          </AppBar>
+          <Navbar />
           <Fab
             onClick={() => {
               onButtonClick();
@@ -133,6 +108,7 @@ let Home = () => {
                     .get()
                     .then((docRef) => {
                       firestore.collection("posts").add({
+                        uid:user.uid,
                         name: docRef.data().displayName,
                         dp: docRef.data().photoURL,
                         likes: [],

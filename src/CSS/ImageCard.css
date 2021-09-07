@@ -1,0 +1,15 @@
+.profile-post-container{
+    height: 30rem;
+    width: 30rem;
+    margin: 30px;
+}
+
+.post-src{
+    height: 90%;
+    width: 100%;
+}
+
+.post-src img, .post-src video{
+    height: 100%;
+    width: 100%;
+}

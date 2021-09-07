@@ -1,31 +1,36 @@
-import AuthProvider from "./Components/AuthProvider";
+import AuthProvider, { userContext } from "./Components/AuthProvider";
 import Login from "./Components/Login";
 import SignUpPersonal from "./Components/SignUp1";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import SignUp from "./Components/SignUp2";
+import ProfilePage from "./Components/ProfilePage";
+import { useContext } from "react";
 
 let App = () => {
   return (
     <>
-      <Router>
-        <AuthProvider>
+      <AuthProvider>
+        <Router>
           <Switch>
+            <Route exact path="/profile-page">
+              <ProfilePage />
+            </Route>
             <Route exact path="/sign-up1">
               <SignUpPersonal />
             </Route>
             <Route exact path="/sign-up2">
-              <SignUp/>
+              <SignUp />
             </Route>
             <Route exact path="/login">
-              <Login/>
+              <Login />
             </Route>
             <Route exact path="/">
               <Home />
             </Route>
           </Switch>
-        </AuthProvider>
-      </Router>
+        </Router>
+      </AuthProvider>
     </>
   );
 };

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-let SignUp = () => {
+let SignUp = (props) => {
   const classes = useStyles();
   let [name, setName] = useState("");
   let user = useContext(userContext);

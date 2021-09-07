@@ -1,21 +1,25 @@
 import "../CSS/VideoCard.css";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteSharpIcon from "@material-ui/icons/FavoriteSharp";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { userContext } from "./AuthProvider";
 import { firestore } from "../firebase";
 
 let VideoCard = (props) => {
   let user = useContext(userContext);
-  let currUserName;
-  firestore
-    .collection("users")
-    .doc(user.uid)
-    .get()
-    .then((docRef) => {
-      currUserName = docRef.data().displayName;
-      console.log(currUserName);
-    });
+  let [currUserName, setCurrUserName] = useState("");
+  let [currUserDP, setCurrUserDP] = useState("");
+  useEffect(() => {
+    firestore
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((docRef) => {
+        setCurrUserName(docRef.data().displayName);
+        setCurrUserDP(docRef.data().photoURL);
+      });
+  }, []);
+
   let isLikedByUser = props.data.likes.includes(user.uid);
   let [comment, setComment] = useState("");
   let post = props.data;
@@ -56,7 +60,7 @@ let VideoCard = (props) => {
                     ...post.comments,
                     {
                       name: currUserName,
-                      dp: user.photoURL,
+                      dp: currUserDP,
                       value: comment,
                     },
                   ];

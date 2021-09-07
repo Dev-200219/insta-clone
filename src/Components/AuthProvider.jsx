@@ -8,10 +8,9 @@ let AuthProvider = (props) => {
   let [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let unsub = auth.onAuthStateChanged(async (user) => {
+    let unsub1 = auth.onAuthStateChanged(async (user) => {
       if (user) {
         let { uid, displayName, email, photoURL } = user;
-        console.log(user);
 
         let docRef = firestore.collection("users").doc(uid);
         let documentSnapshot = await docRef.get();
@@ -38,7 +37,7 @@ let AuthProvider = (props) => {
     });
 
     return () => {
-      unsub();
+      unsub1();
     };
   }, []);
 
