@@ -30,7 +30,15 @@ let SignUpPersonal = () => {
   return (
     <>
       {!user ? (
-        <Container className="sign-up-box">
+        <Container className="sign-up-box-container">
+          <div className="sign-up-box">
+
+          <div className="display-img-container">
+              <img
+                src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
+                alt=""
+              />
+            </div>
           <form color="primary">
             <TextField
               className={classes.root}
@@ -69,7 +77,7 @@ let SignUpPersonal = () => {
             />
             <Button
               onClick={() => {
-                if (pass === confirmPass) {
+                if (pass !== "" && pass === confirmPass) {
                   auth.createUserWithEmailAndPassword(email, pass);
                   history.push("/sign-up2");
                 }
@@ -102,6 +110,7 @@ let SignUpPersonal = () => {
               </Button>
             </div>
           </form>
+          </div>
         </Container>
       ) : (
         <Redirect to="/"></Redirect>
