@@ -51,6 +51,10 @@
   position: relative;
 }
 
+.profile-user-bio p{
+    overflow-wrap: break-word;
+}
+
 .profile-user-posts {
   background-color: white;
   position: relative;
@@ -95,4 +99,5 @@
     outline: none;
     background-color: #ecf0f1;
     border-radius: 5px;
+    overflow-wrap: break-word;
 }

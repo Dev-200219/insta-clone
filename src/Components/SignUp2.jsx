@@ -20,7 +20,6 @@ const useStyles = makeStyles({
   },
 
   bio: {
-    height: "5rem",
     wordBreak: "break-word",
   },
 });
@@ -59,6 +58,7 @@ let SignUp = (props) => {
               label="Bio"
               variant="outlined"
               color="primary"
+              multiline
               value={bio}
               onChange={(e) => {
                 setBio(e.currentTarget.value);

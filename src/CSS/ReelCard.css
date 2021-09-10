@@ -1,0 +1,56 @@
+.video-container {
+  height: 100%;
+  width: 30rem;
+  margin: auto;
+  margin-top: 10px;
+  scroll-snap-align: start;
+  margin-bottom: 1px;
+}
+
+.video-src{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.video-src video{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.reels-user-name, .song-details{
+    position: absolute;
+    color: white;
+}
+
+.reels-user-name{
+    bottom: 4rem;
+    left: 10px;
+}
+
+.song-details{
+    display: flex;
+    bottom: 3rem;
+    left: 4px;
+}
+
+.like-btn-container{
+    position: absolute;
+    bottom: 1rem;
+    left: 7px;
+}
+
+.comment-btn-container{
+    position: absolute;
+    bottom: 1rem;
+    left: 40px;
+}
+
+.reels-like-btn{
+    color: red;
+}
+
+.reels-comments-btn{
+    color: white;
+}

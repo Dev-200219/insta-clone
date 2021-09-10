@@ -22,8 +22,8 @@
 .sign-up-box .display-img-container img{
     height: 100%;
     width: 100%;
-    /* object-fit: contain; */
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 form{
@@ -34,5 +34,6 @@ form{
     justify-content: center;
     align-items: center;
     background-color: white;
-    border-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

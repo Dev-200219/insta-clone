@@ -13,6 +13,7 @@ let ProfilePage = () => {
   let [currUserName, setCurrUserName] = useState("");
   let [currUserDP, setCurrUserDP] = useState("");
   let [currUserPost, setCurrUserPost] = useState([]);
+  let [currUserReels, setCurrUserReels] = useState([]);
   let [currUserBio, setCurrUserBio] = useState("");
   let [isBioInputOpen, setIsBioInputOpen] = useState(false);
 
@@ -29,18 +30,34 @@ let ProfilePage = () => {
   }, []);
 
   useEffect(() => {
+    let arr = [];
     firestore
       .collection("posts")
       .get()
       .then((data) => {
         let docsArr = data.docs;
-        let arr = [];
         for (let i = 0; i < docsArr.length; i++) {
           if (docsArr[i].data().uid === user.uid) arr.push(docsArr[i].data());
         }
         setCurrUserPost(arr);
       });
+    
+      arr = [];
+
+    firestore
+      .collection("reels")
+      .get()
+      .then((data) => {
+        let docsArr = data.docs;
+        for (let i = 0; i < docsArr.length; i++) {
+          console.log(docsArr[i].data());
+          if (docsArr[i].data().uid === user.uid) arr.push(docsArr[i].data());
+        }
+        setCurrUserReels(arr);
+      });
   }, []);
+
+  console.log(currUserPost);
 
   const inputFile = useRef(null);
   const inputBio = useRef(null);
@@ -129,7 +146,9 @@ let ProfilePage = () => {
                   {currUserBio === "" ? (
                     <p>Add to bio..</p>
                   ) : (
-                    <p>{currUserBio}</p>
+                    <p col style={{ textOverflow: "auto" }}>
+                      {currUserBio}
+                    </p>
                   )}
                   <Button
                     className="bio-edit-btn"

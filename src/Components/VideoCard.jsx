@@ -18,7 +18,7 @@ let VideoCard = (props) => {
         setCurrUserName(docRef.data().displayName);
         setCurrUserDP(docRef.data().photoURL);
       });
-  }, []);
+  }, [user.uid]);
 
   let isLikedByUser = props.data.likes.includes(user.uid);
   let [comment, setComment] = useState("");

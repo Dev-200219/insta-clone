@@ -6,6 +6,7 @@ import Home from "./Components/Home";
 import SignUp from "./Components/SignUp2";
 import ProfilePage from "./Components/ProfilePage";
 import { useContext } from "react";
+import Reels from "./Components/Reels";
 
 let App = () => {
   return (
@@ -13,6 +14,9 @@ let App = () => {
       <AuthProvider>
         <Router>
           <Switch>
+            <Route exact path="/reels">
+              <Reels />
+            </Route>
             <Route exact path="/profile-page">
               <ProfilePage />
             </Route>

@@ -87,8 +87,8 @@ let Home = () => {
               type = type.split("/")[0];
               size = size / 1000000;
 
-              if (type !== "video" && type !== "image") {
-                alert("Only Images and Videos can be uploaded");
+              if (type !== "image") {
+                alert("Only Images can be uploaded");
                 return;
               }
 
