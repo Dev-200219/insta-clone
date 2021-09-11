@@ -88,7 +88,10 @@ let Login = () => {
                     signUpWithGoogle();
                   }}
                 >
-                  <img src="http://localhost:3000/icons/google-icon.svg" alt="google_icon"></img>
+                  <img
+                    src="http://localhost:3000/icons/google-icon.svg"
+                    alt="google_icon"
+                  ></img>
                 </Button>
               </div>
             </form>

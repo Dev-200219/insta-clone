@@ -110,6 +110,9 @@ let ReelCard = (props) => {
               <FavoriteBorderIcon className="reels-like-btn" />
             )}
           </div>
+            <div className="num-likes">
+              <p>{`${props.data.likes.length} ${props.data.likes.length > 1 ? "Likes" : "Like"}`}</p>
+            </div>
           <div
             onClick={() => {
               if (isCommentBoxOpen) {

@@ -42,7 +42,10 @@ let VideoCard = (props) => {
               {post.dp ? (
                 <img src={post.dp} alt=""></img>
               ) : (
-                <img src="https://i.stack.imgur.com/l60Hf.png" alt="some_dp"></img>
+                <img
+                  src="https://i.stack.imgur.com/l60Hf.png"
+                  alt="some_dp"
+                ></img>
               )}
             </div>
             <p className="user-name">{post.name}</p>
@@ -93,6 +96,11 @@ let VideoCard = (props) => {
             ) : (
               <FavoriteBorderIcon className="like-btn" />
             )}
+            <div>
+              {`${props.data.likes.length} ${
+                props.data.likes.length > 1 ? "Likes" : "Like"
+              }`}
+            </div>
           </button>
 
           <div className="actual-comments-container">

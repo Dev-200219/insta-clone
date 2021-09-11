@@ -68,7 +68,7 @@ let ImageCard = (props) => {
         </div>
         <div className="post-likes-comm">
           <div className="profile-like-container">
-            <FavoriteSharpIcon className="reels-like-btn" />
+            <FavoriteSharpIcon className="profile-like-btn" />
 
             <div>
               {`${props.data.likes.length} ${props.data.likes.length > 1 ? "Likes" : "Like"}`}

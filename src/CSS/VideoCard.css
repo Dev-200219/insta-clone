@@ -40,7 +40,6 @@
   top: 130px;
   left: 339px;
   color: red;
-  font-size: 2rem !important;
 }
 
 .emoji-btn {
@@ -138,9 +137,10 @@
   font-size: 15px;
 }
 
-.emoji-picker-container {
+.like-comment-container button div{
   position: absolute;
-  /* left: 0; */
-  top: 11rem;
-  left: 15rem;
+  color: black;
+  top: 153px;
+  left: 336px;
+  font-size: 12px;
 }
