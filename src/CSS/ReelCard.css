@@ -1,10 +1,15 @@
+.single-reel-container{
+    display: flex;
+}
+
 .video-container {
-  height: 100%;
-  width: 30rem;
-  margin: auto;
-  margin-top: 10px;
-  scroll-snap-align: start;
-  margin-bottom: 1px;
+    height: 100%;
+    width: 30rem;
+    margin: auto;
+    margin-top: 10px;
+    scroll-snap-align: start;
+    position: relative;
+  /* margin-bottom: 1px; */
 }
 
 .video-src{
@@ -53,4 +58,30 @@
 
 .reels-comments-btn{
     color: white;
+}
+
+.reels-comments-container{
+    position: absolute;
+    height: 90%;
+    width: 30rem;
+    top: 2rem;
+    left: 30rem;
+}
+
+.reels-add-comment input{
+    display: block;
+    margin-top: 2rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    height: 2rem;
+    width: 25rem;
+    margin-left: 1rem;
+}
+
+.reel-all-comments{
+    height: 30rem;
+    overflow-y: scroll;
+    width: 100%;
+    margin-top: 2rem;
 }

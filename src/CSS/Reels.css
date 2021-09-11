@@ -1,7 +1,8 @@
 .all-video-container {
-  height: 87vh;
-  width: 97vw;
+  height: 89vh;
+  width: 98vw;
   margin-top: 5rem;
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
+  margin-bottom: 0;
 }

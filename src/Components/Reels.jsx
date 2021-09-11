@@ -6,6 +6,7 @@ import ReelCard from "./ReelCard";
 import { useContext, useEffect, useState, useRef } from "react";
 import { firestore, storage } from "../firebase";
 import { userContext } from "./AuthProvider";
+import { Redirect } from "react-router";
 
 let Reels = () => {
   const inputFile = useRef(null);
@@ -49,70 +50,76 @@ let Reels = () => {
 
   return (
     <>
-      <div className="navbar-container">
-        <Navbar />
-      </div>
-      <div className="all-video-container">
-        {postsArr.map((el, idx) => {
-          return <ReelCard key={idx} data={el} />;
-        })}
-      </div>
-      <Fab
-        onClick={() => {
-          onButtonClick();
-        }}
-        color="primary"
-        aria-label="add"
-        className={classes.addBtn}
-      >
-        <AddIcon />
-      </Fab>
-      <input
-        type="file"
-        id="file"
-        ref={inputFile}
-        style={{ display: "none" }}
-        onChange={(e) => {
-          let uploadedObj = e.currentTarget.files[0];
-          let { name, size, type } = uploadedObj;
+      {user ? (
+        <>
+          <div className="navbar-container">
+            <Navbar />
+          </div>
+          <div className="all-video-container">
+            {postsArr.map((el, idx) => {
+              return <ReelCard key={idx} data={el} />;
+            })}
+          </div>
+          <Fab
+            onClick={() => {
+              onButtonClick();
+            }}
+            color="primary"
+            aria-label="add"
+            className={classes.addBtn}
+          >
+            <AddIcon />
+          </Fab>
+          <input
+            type="file"
+            id="file"
+            ref={inputFile}
+            style={{ display: "none" }}
+            onChange={(e) => {
+              let uploadedObj = e.currentTarget.files[0];
+              let { name, size, type } = uploadedObj;
 
-          type = type.split("/")[0];
-          size = size / 1000000;
+              type = type.split("/")[0];
+              size = size / 1000000;
 
-          if (type !== "video") {
-            alert("Only Videos can be uploaded");
-            return;
-          }
+              if (type !== "video") {
+                alert("Only Videos can be uploaded");
+                return;
+              }
 
-          if (size > 15) {
-            alert("Can't upload files with size more than 15MB");
-            return;
-          }
+              if (size > 40) {
+                alert("Can't upload files with size more than 40MB");
+                return;
+              }
 
-          let uploadtask = storage
-            .ref(`/reels/${user.uid}/${Date.now() + "-" + name}`)
-            .put(uploadedObj);
-          uploadtask.on("state_changed", null, null, () => {
-            uploadtask.snapshot.ref.getDownloadURL().then((url) => {
-              firestore
-                .collection("users")
-                .doc(user.uid)
-                .get()
-                .then((docRef) => {
-                  firestore.collection("reels").add({
-                    uid: user.uid,
-                    name: docRef.data().displayName,
-                    dp: docRef.data().photoURL,
-                    likes: [],
-                    comments: [],
-                    url: url,
-                    type,
-                  });
+              let uploadtask = storage
+                .ref(`/reels/${user.uid}/${Date.now() + "-" + name}`)
+                .put(uploadedObj);
+              uploadtask.on("state_changed", null, null, () => {
+                uploadtask.snapshot.ref.getDownloadURL().then((url) => {
+                  firestore
+                    .collection("users")
+                    .doc(user.uid)
+                    .get()
+                    .then((docRef) => {
+                      firestore.collection("reels").add({
+                        uid: user.uid,
+                        name: docRef.data().displayName,
+                        dp: docRef.data().photoURL,
+                        likes: [],
+                        comments: [],
+                        url: url,
+                        type,
+                      });
+                    });
                 });
-            });
-          });
-        }}
-      />
+              });
+            }}
+          />
+        </>
+      ) : (
+        <Redirect to="/login"/>
+      )}
     </>
   );
 };
