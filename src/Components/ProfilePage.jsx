@@ -194,7 +194,7 @@ let ProfilePage = () => {
               </div>
             </div>
             <div className="profile-user-posts">
-              <h2>My Posts : {currUserPost.length}</h2>
+              <h1>My Posts : {currUserPost.length}</h1>
               <div className="profile-posts-carousel">
                 {currUserPost.map((el, idx) => {
                   return <ImageCard key={idx} data={el} />;

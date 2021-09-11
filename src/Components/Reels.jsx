@@ -13,7 +13,7 @@ let Reels = () => {
   let user = useContext(userContext);
   let [postsArr, setPostsArr] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     let unsub = firestore.collection("reels").onSnapshot((querySnapshot) => {
       let docArr = querySnapshot.docs;
       let arr = [];

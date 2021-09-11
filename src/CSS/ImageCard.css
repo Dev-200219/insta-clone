@@ -1,15 +1,55 @@
-.profile-post-container{
-    height: 30rem;
-    width: 30rem;
-    margin: 30px;
+.profile-post-container {
+  height: 30rem;
+  width: 30rem;
+  margin: 30px;
+  box-shadow: 0px 0px 2px 2px #aaa;
+  border-radius: 5px;
 }
 
-.post-src{
-    height: 90%;
-    width: 100%;
+.post-src {
+  height: 90%;
+  width: 100%;
 }
 
-.post-src img, .post-src video{
-    height: 100%;
-    width: 100%;
+.post-src img,
+.post-src video {
+  height: 100%;
+  width: 100%;
+  object-fit: unset;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
+
+.post-likes-comm {
+  height: 10%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ecf0f1;
+}
+
+.reels-like-btn {
+  font-size: 2rem !important;
+}
+
+.profile-like-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-comment-container{
+    position: absolute;
+    left: 50px;
+    top: 1px;
+}
+
+.profile-comments-btn{
+    color: black !important;
+    font-size: 2rem !important;
+}
+

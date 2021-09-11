@@ -47,7 +47,6 @@ let ReelCard = (props) => {
   useEffect(() => {
     //step 3
     const myObserver = new IntersectionObserver((elements) => {
-      console.log(myEl);
       if (elements[0].intersectionRatio >= 0.5) {
         //play the video
         if (myEl.current) myEl.current.play();

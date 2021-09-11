@@ -30,7 +30,7 @@ let VideoCard = (props) => {
       <div className="video-card-container">
         <div className="data-container">
           {post.type === "image" ? (
-            <img src={post.url}></img>
+            <img src={post.url} alt="post_img"></img>
           ) : (
             <video controls src={post.url}></video>
           )}
@@ -40,9 +40,9 @@ let VideoCard = (props) => {
           <div className="user-info">
             <div className="user-img">
               {post.dp ? (
-                <img src={post.dp}></img>
+                <img src={post.dp} alt=""></img>
               ) : (
-                <img src="https://i.stack.imgur.com/l60Hf.png"></img>
+                <img src="https://i.stack.imgur.com/l60Hf.png" alt="some_dp"></img>
               )}
             </div>
             <p className="user-name">{post.name}</p>
