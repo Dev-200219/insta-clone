@@ -8,7 +8,7 @@ import "../CSS/ReelCard.css";
 import { userContext } from "./AuthProvider";
 let ReelCard = (props) => {
   let user = useContext(userContext);
-  let [isPlaying, setIsPlaying] = useState(false);
+  let [isPlaying, setIsPlaying] = useState(true);
   let [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
   let [comment, setComment] = useState("");
   let [currUserName, setCurrUserName] = useState("");
@@ -22,7 +22,7 @@ let ReelCard = (props) => {
         setCurrUserName(docRef.data().displayName);
         setCurrUserDP(docRef.data().photoURL);
       });
-  }, [user.uid]);
+  }, []);
   let isLikedByUser = props.data.likes.includes(user.uid);
   let commentsArr = props.data.comments;
 
@@ -84,6 +84,7 @@ let ReelCard = (props) => {
             src={props.data.url}
             ref={myEl}
             loop
+            autoPlay
           ></video>
           <div
             onClick={() => {
