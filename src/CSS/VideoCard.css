@@ -21,7 +21,8 @@
   width: 50%;
 }
 
-.data-container img, .data-container video {
+.data-container img,
+.data-container video {
   height: 100%;
   width: 100%;
   object-fit: contain;
@@ -39,6 +40,14 @@
   top: 130px;
   left: 339px;
   color: red;
+  font-size: 2rem !important;
+}
+
+.emoji-btn {
+  position: absolute;
+  top: 130px;
+  left: 290px;
+  color: black;
   font-size: 2rem !important;
 }
 
@@ -67,64 +76,71 @@
   outline: none;
 }
 
-.user-info{
-    position: absolute;
-    display: flex;
-    top: 15px;
+.user-info {
+  position: absolute;
+  display: flex;
+  top: 15px;
 }
 
-.user-info .user-img{
-    height: 5rem;
-    width: 5rem;
-    margin: 10px;
+.user-info .user-img {
+  height: 5rem;
+  width: 5rem;
+  margin: 10px;
 }
 
-.user-img img{
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
+.user-img img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
 }
 
-.user-info p{
-    font-size: 1.5rem;
+.user-info p {
+  font-size: 1.5rem;
 }
 
-.actual-comments-container{
-    position: absolute;
-    top: 200px;
-    height: 60%;
-    width: 95%;
+.actual-comments-container {
+  position: absolute;
+  top: 200px;
+  height: 60%;
+  width: 95%;
 }
 
-.actual-comment .comment-user-info{
-    display: flex;
+.actual-comment .comment-user-info {
+  display: flex;
 }
 
-.actual-comment{
-    margin: 15px;
-    /* display: flex; */
+.actual-comment {
+  margin: 15px;
+  /* display: flex; */
 }
 
-.comm-user-img{
-    height: 2.5rem;
-    width: 2.5rem;
-    margin-right: 10px;
+.comm-user-img {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-right: 10px;
 }
 
-.comment-user-info p{
-    display: inline-block;
-    margin-top: 2px;
-    font-size: 1rem;
+.comment-user-info p {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 1rem;
 }
 
-.comm-user-img img{
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
+.comm-user-img img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
 }
 
-.comment-value p{
-    margin-top: -16px;
-    margin-left: 51px;
-    font-size: 15px;
+.comment-value p {
+  margin-top: -16px;
+  margin-left: 51px;
+  font-size: 15px;
+}
+
+.emoji-picker-container {
+  position: absolute;
+  /* left: 0; */
+  top: 11rem;
+  left: 15rem;
 }

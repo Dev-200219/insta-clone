@@ -41,8 +41,8 @@ let ProfilePage = () => {
         }
         setCurrUserPost(arr);
       });
-    
-      arr = [];
+
+    arr = [];
 
     firestore
       .collection("reels")
@@ -99,7 +99,7 @@ let ProfilePage = () => {
                     onChange={(e) => {
                       let newDPObj = e.currentTarget.files[0];
                       console.log(newDPObj);
-                      let { name, type, size } = newDPObj;
+                      let { type } = newDPObj;
                       type = type.split("/")[0];
                       if (type !== "image") {
                         alert("Upload Image Only");
@@ -122,7 +122,6 @@ let ProfilePage = () => {
                             .get()
                             .then((data) => {
                               let docsArr = data.docs;
-                              let arr = [];
                               for (let i = 0; i < docsArr.length; i++) {
                                 if (docsArr[i].data().uid === user.uid) {
                                   docsArr[i].ref.update({ dp: url });
