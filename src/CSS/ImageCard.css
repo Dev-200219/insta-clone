@@ -1,13 +1,13 @@
 .profile-post-container {
-  height: 30rem;
-  width: 30rem;
+  height: 20rem;
+  width: 20rem;
   margin: 30px;
   box-shadow: 0px 0px 2px 2px #aaa;
   border-radius: 5px;
 }
 
 .post-src {
-  height: 90%;
+  height: 85%;
   width: 100%;
 }
 
@@ -21,12 +21,12 @@
 }
 
 .post-likes-comm {
-  height: 10%;
+  height: 15%;
   width: 100%;
   position: relative;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
   background-color: #ecf0f1;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .profile-all-comments-cont{
-    height: 90%;
+    height: 85%;
     width: 100%;
     overflow-y: scroll;
 }

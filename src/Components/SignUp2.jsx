@@ -1,10 +1,11 @@
 import { Button, Container, TextField } from "@material-ui/core";
-import { firestore } from "../firebase";
+import { firestore, storage } from "../firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import "../CSS/signup.css";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { userContext } from "./AuthProvider";
 import { useHistory } from "react-router";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
 const useStyles = makeStyles({
   root: {
@@ -30,6 +31,7 @@ let SignUp = (props) => {
   let [bio, setBio] = useState("");
   let user = useContext(userContext);
   let history = useHistory();
+  const dpRef = useRef(null);
   return (
     <>
       <Container className="sign-up-box-container">
@@ -62,6 +64,40 @@ let SignUp = (props) => {
               value={bio}
               onChange={(e) => {
                 setBio(e.currentTarget.value);
+              }}
+            />
+
+            <Button onClick={()=>{
+              dpRef.current.click();
+            }} className="profile-pic-upload-container">
+              Upload Profile Picture
+              <CloudUploadIcon />
+            </Button>
+            <input
+              style={{ display: "none" }}
+              type="file"
+              ref={dpRef}
+              onChange={(e) => {
+                let imgObj = e.currentTarget.files[0];
+                let { type } = imgObj;
+                type = type.split("/")[0];
+
+                if (type !== "image") {
+                  alert("Upload Image Only");
+                  return;
+                }
+
+                let uploadTask = storage
+                  .ref(`/dp/${user.uid + "-" + Date.now()}`)
+                  .put(imgObj);
+                uploadTask.on("state_changed", null, null, () => {
+                  uploadTask.snapshot.ref.getDownloadURL().then((url) => {
+                    firestore
+                      .collection("users")
+                      .doc(user.uid)
+                      .update({ photoURL: url });
+                  });
+                });
               }}
             />
 

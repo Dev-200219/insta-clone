@@ -6,6 +6,10 @@ import { firestore } from "../firebase";
 import CommentIcon from "@material-ui/icons/Comment";
 import "../CSS/ReelCard.css";
 import { userContext } from "./AuthProvider";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
+import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
+
 let ReelCard = (props) => {
   let user = useContext(userContext);
   let [isPlaying, setIsPlaying] = useState(true);
@@ -13,6 +17,8 @@ let ReelCard = (props) => {
   let [comment, setComment] = useState("");
   let [currUserName, setCurrUserName] = useState("");
   let [currUserDP, setCurrUserDP] = useState("");
+  let [isEmojiPalleteOpen, setIsEmojiPalleteOpen] = useState(false);
+
   useEffect(() => {
     firestore
       .collection("users")
@@ -62,6 +68,16 @@ let ReelCard = (props) => {
     myObserver.observe(myEl.current);
   }, []);
 
+  const emojiPalleteRef = useRef(null);
+
+  const openEmojiPallete = () => {
+    emojiPalleteRef.current.style = "display:block";
+  };
+
+  const closeEmojiPallete = () => {
+    emojiPalleteRef.current.style = "display:none";
+  };
+
   return (
     <>
       <div className="video-container">
@@ -110,9 +126,11 @@ let ReelCard = (props) => {
               <FavoriteBorderIcon className="reels-like-btn" />
             )}
           </div>
-            <div className="num-likes">
-              <p>{`${props.data.likes.length} ${props.data.likes.length > 1 ? "Likes" : "Like"}`}</p>
-            </div>
+          <div className="num-likes">
+            <p>{`${props.data.likes.length} ${
+              props.data.likes.length > 1 ? "Likes" : "Like"
+            }`}</p>
+          </div>
           <div
             onClick={() => {
               if (isCommentBoxOpen) {
@@ -160,6 +178,33 @@ let ReelCard = (props) => {
                 }
               }}
             ></input>
+            <button
+              onClick={() => {
+                if (isEmojiPalleteOpen) {
+                  closeEmojiPallete();
+                  setIsEmojiPalleteOpen(false);
+                } else {
+                  openEmojiPallete();
+                  setIsEmojiPalleteOpen(true);
+                }
+              }}
+              className="reel-emoji-picker-btn"
+            >
+              <SentimentVerySatisfiedIcon />
+            </button>
+            <div
+              ref={emojiPalleteRef}
+              style={{ display: "none" }}
+              className="reel-emoji-picker-container"
+            >
+              <Picker
+                onClick={(emoji) => {
+                  setComment(comment + emoji.native);
+                }}
+                sheetSize={16}
+                perLine={9}
+              />
+            </div>
           </div>
           <div className="reel-all-comments">
             {commentsArr.map((el, idx) => {

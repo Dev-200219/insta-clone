@@ -5,15 +5,21 @@
   margin-top: 75px;
 }
 
-.profile-user-info,
-.profile-user-posts {
+.profile-user-info{
   height: 100%;
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.profile-user-posts {
+  height: 100%;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .profile-card {
   height: 90%;
   width: 50%;
@@ -38,7 +44,7 @@
 }
 
 .profile-user-name h2 {
-  margin-left: 130px;
+  margin-left: 115px;
 }
 
 .profile-user-bio {
@@ -51,8 +57,8 @@
   position: relative;
 }
 
-.profile-user-bio p{
-    overflow-wrap: break-word;
+.profile-user-bio p {
+  overflow-wrap: break-word;
 }
 
 .profile-user-posts {
@@ -65,7 +71,7 @@
 .profile-user-posts h1 {
   position: absolute;
   top: 10px;
-  left: 125px;
+  left: 41px;
 }
 
 .profile-posts-carousel {
@@ -90,14 +96,14 @@
   width: 2rem;
 }
 
-.profile-user-bio input{
-    display: block;
-    height: 2rem;
-    width: 18rem;
-    padding: 5px;
-    border: none;
-    outline: none;
-    background-color: #ecf0f1;
-    border-radius: 5px;
-    overflow-wrap: break-word;
+.profile-user-bio input {
+  display: block;
+  height: 2rem;
+  width: 18rem;
+  padding: 5px;
+  border: none;
+  outline: none;
+  background-color: #ecf0f1;
+  border-radius: 5px;
+  overflow-wrap: break-word;
 }
