@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/insta-clone/static/css/main.da28d21e.chunk.css",
+    "main.js": "/insta-clone/static/js/main.51280ff1.chunk.js",
+    "main.js.map": "/insta-clone/static/js/main.51280ff1.chunk.js.map",
+    "runtime-main.js": "/insta-clone/static/js/runtime-main.9c92337b.js",
+    "runtime-main.js.map": "/insta-clone/static/js/runtime-main.9c92337b.js.map",
+    "static/css/2.d408779a.chunk.css": "/insta-clone/static/css/2.d408779a.chunk.css",
+    "static/js/2.b0636da3.chunk.js": "/insta-clone/static/js/2.b0636da3.chunk.js",
+    "static/js/2.b0636da3.chunk.js.map": "/insta-clone/static/js/2.b0636da3.chunk.js.map",
+    "index.html": "/insta-clone/index.html",
+    "static/css/2.d408779a.chunk.css.map": "/insta-clone/static/css/2.d408779a.chunk.css.map",
+    "static/css/main.da28d21e.chunk.css.map": "/insta-clone/static/css/main.da28d21e.chunk.css.map",
+    "static/js/2.b0636da3.chunk.js.LICENSE.txt": "/insta-clone/static/js/2.b0636da3.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c92337b.js",
+    "static/css/2.d408779a.chunk.css",
+    "static/js/2.b0636da3.chunk.js",
+    "static/css/main.da28d21e.chunk.css",
+    "static/js/main.51280ff1.chunk.js"
+  ]
+}
