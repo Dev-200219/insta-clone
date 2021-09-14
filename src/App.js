@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Components/Home";
 import SignUp from "./Components/SignUp2";
 import ProfilePage from "./Components/ProfilePage";
-import { useContext } from "react";
 import Reels from "./Components/Reels";
 
 let App = () => {

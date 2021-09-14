@@ -31,7 +31,7 @@ let Navbar = () => {
   const classes = useStyles();
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar color="white" position="fixed">
         <Toolbar>
           <div
             onClick={() => {
@@ -70,7 +70,6 @@ let Navbar = () => {
             onClick={() => {
               auth.signOut();
             }}
-            color="inherit"
           >
             <img
               className={classes.logout_logo}

@@ -1,11 +1,25 @@
-body{
-    background-color: #F8EFBA;
+body {
+  background-image: linear-gradient(
+    to left,
+    #e84393,
+    #f6e58d,
+    #fd79a8,
+    #6c5ce7,
+    #81ecec
+  );
 }
 
-.posts-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 5rem;
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.progress-circle {
+  width: 40px;
+  height: 40px;
+  margin-top: 7rem;
+  margin-left: 46rem;
 }

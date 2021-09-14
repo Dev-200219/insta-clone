@@ -33,12 +33,17 @@ let SignUpPersonal = () => {
   let [pass, setPass] = useState("");
   let [confirmPass, setConfirmPass] = useState("");
   let [showPass, setShowPass] = useState(false);
+  let [showConfirmPass, setShowConfirmPass] = useState(false);
   let user = useContext(userContext);
   let history = useHistory();
 
   const handleClickShowPassword = () => {
     setShowPass(!showPass);
   };
+
+  const heandleConfirmPassShow = ()=>{
+    setShowConfirmPass(!showConfirmPass);
+  }
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -51,7 +56,7 @@ let SignUpPersonal = () => {
           <div className="sign-up-box">
             <div className="display-img-container">
               <img
-                src="https://images.unsplash.com/photo-1493723843671-1d655e66ac1c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
+                src="https://images.unsplash.com/photo-1586191582151-f73872dfd183?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3wxNzA4Mjc2fHxlbnwwfHx8fA%3D%3D&w=1000&q=80"
                 alt=""
               />
             </div>
@@ -98,11 +103,11 @@ let SignUpPersonal = () => {
               </FormControl>
               <FormControl variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
-                  Password
+                  Confirm Password
                 </InputLabel>
                 <OutlinedInput
                   id="outlined-adornment-password"
-                  type={showPass ? "text" : "password"}
+                  type={showConfirmPass ? "text" : "password"}
                   value={confirmPass}
                   onChange={(e) => {
                     setConfirmPass(e.currentTarget.value);
@@ -111,23 +116,31 @@ let SignUpPersonal = () => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
+                        onClick={heandleConfirmPassShow}
                         onMouseDown={handleMouseDownPassword}
                         edge="end"
                       >
-                        {showPass ? <Visibility /> : <VisibilityOff />}
+                        {showConfirmPass ? <Visibility /> : <VisibilityOff />}
                       </IconButton>
                     </InputAdornment>
                   }
-                  labelWidth={70}
+                  labelWidth={132}
                 />
               </FormControl>
 
               <Button
                 onClick={() => {
                   if (email !== "" && pass !== "" && pass === confirmPass) {
-                    auth.createUserWithEmailAndPassword(email, pass);
-                    history.push("/sign-up2");
+                    let error;
+                    auth.createUserWithEmailAndPassword(email, pass).catch((err)=>{
+                      error = err;
+                      alert(err.message)
+                    })
+
+                    setTimeout(()=>{
+                      if(!error)
+                      history.push("/sign-up2");
+                    },1000);
                   }
                 }}
                 className={classes.sign_up_btn}
@@ -151,7 +164,9 @@ let SignUpPersonal = () => {
               <div className={classes.other_login}>
                 <Button
                   onClick={() => {
-                    signUpWithGoogle();
+                    signUpWithGoogle().catch((err)=>{
+                      alert(err.message);
+                    })
                   }}
                 >
                   <img

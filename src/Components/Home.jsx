@@ -1,4 +1,4 @@
-import { makeStyles, Fab } from "@material-ui/core";
+import { makeStyles, Fab, CircularProgress } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Redirect, useHistory } from "react-router";
@@ -14,6 +14,7 @@ let Home = () => {
   let user = useContext(userContext);
   let doc, docRef, userName;
   let [posts, setPosts] = useState([]);
+  let [isUploading, setIsUploading] = useState(false);
 
   useEffect(async () => {
     if (user) {
@@ -100,27 +101,46 @@ let Home = () => {
               let uploadtask = storage
                 .ref(`/posts/${user.uid}/${Date.now() + "-" + name}`)
                 .put(uploadedObj);
-              uploadtask.on("state_changed", null, null, () => {
-                uploadtask.snapshot.ref.getDownloadURL().then((url) => {
-                  firestore
-                    .collection("users")
-                    .doc(user.uid)
-                    .get()
-                    .then((docRef) => {
-                      firestore.collection("posts").add({
-                        uid:user.uid,
-                        name: docRef.data().displayName,
-                        dp: docRef.data().photoURL,
-                        likes: [],
-                        comments: [],
-                        url: url,
-                        type,
+              uploadtask.on(
+                "state_changed",
+                (snapshot) => {
+                  var percent =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  console.log(percent + "% done");
+                  if (percent >= 0 && percent < 100) {
+                    setIsUploading(true);
+                  } else {
+                    setIsUploading(false);
+                  }
+                },
+                null,
+                () => {
+                  uploadtask.snapshot.ref.getDownloadURL().then((url) => {
+                    firestore
+                      .collection("users")
+                      .doc(user.uid)
+                      .get()
+                      .then((docRef) => {
+                        firestore.collection("posts").add({
+                          uid: user.uid,
+                          name: docRef.data().displayName,
+                          dp: docRef.data().photoURL,
+                          likes: [],
+                          comments: [],
+                          url: url,
+                          type,
+                        });
                       });
-                    });
-                });
-              });
+                  });
+                }
+              );
             }}
           />
+          {isUploading ? (
+            <CircularProgress className="progress-circle" color="secondary" />
+          ) : (
+            ""
+          )}
           <div className="posts-container">
             {posts.map((el, idx) => {
               return <VideoCard key={idx} data={el} />;

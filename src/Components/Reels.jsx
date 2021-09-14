@@ -1,4 +1,4 @@
-import { makeStyles, Fab } from "@material-ui/core";
+import { makeStyles, Fab, CircularProgress } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Navbar from "./Navbar";
 import "../CSS/Reels.css";
@@ -12,6 +12,8 @@ let Reels = () => {
   const inputFile = useRef(null);
   let user = useContext(userContext);
   let [postsArr, setPostsArr] = useState([]);
+  let [isLoading, setIsLoading] = useState(false);
+  let blurRef = useRef(null);
 
   useEffect(() => {
     let unsub = firestore.collection("reels").onSnapshot((querySnapshot) => {
@@ -52,10 +54,17 @@ let Reels = () => {
     <>
       {user ? (
         <>
+          {isLoading ? (
+            <div className="reels-progress-circle-container">
+              <CircularProgress color="primary" />
+            </div>
+          ) : (
+            ""
+          )}
           <div className="navbar-container">
             <Navbar />
           </div>
-          <div className="all-video-container">
+          <div ref={blurRef} className="all-video-container">
             {postsArr.map((el, idx) => {
               return <ReelCard key={idx} data={el} />;
             })}
@@ -95,30 +104,46 @@ let Reels = () => {
               let uploadtask = storage
                 .ref(`/reels/${user.uid}/${Date.now() + "-" + name}`)
                 .put(uploadedObj);
-              uploadtask.on("state_changed", null, null, () => {
-                uploadtask.snapshot.ref.getDownloadURL().then((url) => {
-                  firestore
-                    .collection("users")
-                    .doc(user.uid)
-                    .get()
-                    .then((docRef) => {
-                      firestore.collection("reels").add({
-                        uid: user.uid,
-                        name: docRef.data().displayName,
-                        dp: docRef.data().photoURL,
-                        likes: [],
-                        comments: [],
-                        url: url,
-                        type,
+              uploadtask.on(
+                "state_changed",
+                (snapshot) => {
+                  var percent =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  console.log(percent + "% done");
+                  if (percent >= 0 && percent < 100) {
+                    setIsLoading(true);
+                    blurRef.current.style="filter:blur(8px)"
+                  } else {
+                    setIsLoading(false);
+                    blurRef.current.style="filter:blur(0px)"
+                  }
+                },
+                null,
+                () => {
+                  uploadtask.snapshot.ref.getDownloadURL().then((url) => {
+                    firestore
+                      .collection("users")
+                      .doc(user.uid)
+                      .get()
+                      .then((docRef) => {
+                        firestore.collection("reels").add({
+                          uid: user.uid,
+                          name: docRef.data().displayName,
+                          dp: docRef.data().photoURL,
+                          likes: [],
+                          comments: [],
+                          url: url,
+                          type,
+                        });
                       });
-                    });
-                });
-              });
+                  });
+                }
+              );
             }}
           />
         </>
       ) : (
-        <Redirect to="/login"/>
+        <Redirect to="/login" />
       )}
     </>
   );
